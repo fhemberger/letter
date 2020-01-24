@@ -8,6 +8,8 @@ Instead of messing around in Word, Pages or even Indesign, you can write your le
 
 Written in plain HTML and CSS, Letter runs as a Docker container either on your machine or on a server. The [original version](https://github.com/bastianallgeier/letter) was written in PHP by [Bastian Allgeier](https://twitter.com/bastianallgeier/) and requires a separate web server. This version comes with a tiny web server written in Go, so you don’t need anything besides Docker.
 
+Quill icon made by [Pixel perfect](https://www.flaticon.com/authors/pixel-perfect) from [www.flaticon.com](https://www.flaticon.com/).
+
 You can setup your own letter template and customize the design with CSS.
 
 ## Usage

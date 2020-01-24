@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex, nofollow, noodp">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="icon" href="/static/favicon.png" type="image/png" />
+  <link rel="icon" href="/static/letter.png" type="image/png" />
   <link rel="stylesheet" href="/static/defaults.css" media="all">
   <style>
     {{ .Theme }}
