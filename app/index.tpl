@@ -22,7 +22,7 @@
           <name>{{ .Name }}</name>
           <street>{{ .Street }}</street>
           <city>{{ .City }}</city>
-          {{ if not .Country -}}
+          {{ if .Country -}}
           <country>{{ .Country }}</country>
           {{- end }}
         </from>
