@@ -59,34 +59,6 @@ If you want to adjust Letter’s custom styles, go to `config/styles.css` and ad
 Replace Letter’s example signature.png in `config/signature.png` with your own, to load it automatically.
 
 
-## Advanced usage
-
-If you’re running Docker for Mac (or Windows), you can use a reverse proxy like [Træfik]() to make Letter accessible under `http://letter.docker.localhost`:
-
-```toml
-# traefik.toml
-checkNewVersion = false
-
-[web]
-address = ":8080"
-
-[docker]
-domain = "docker.localhost"
-watch = true
-```
-
-```bash
-docker run -d -p 80:80 \
-  --restart on-failure:3 \
-  -v "$PWD/traefik.toml:/etc/traefik/traefik.toml:ro" \
-  -v /var/run/docker.sock:/var/run/docker.sock:ro \
-  -l traefik.frontend.rule=Host:traefik.docker.localhost \
-  -l traefik.port=8080 \
-  --name traefik \
-  traefik
-```
-
-
 ## License
 
 [MIT](LICENSE)
