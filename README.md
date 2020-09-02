@@ -22,7 +22,7 @@ You can setup your own letter template and customize the design with CSS.
       -p 3000:3000 \
       -v "$PWD/config:/config:ro" \
       --name letter \
-      fhemberger/letter
+      ghcr.io/fhemberger/letter
     ```
 
 3. The web-server is exposed on `http://localhost:3000`. Happy writing.
