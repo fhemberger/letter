@@ -8,10 +8,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: matootie/github-docker@v3.0.0
+      - name: Check out repo
+        uses: actions/checkout@v2
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v1
         with:
-          accessToken: ${{ github.token }}
-          tag: |
-            latest
-            ${{ github.sha }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.REGISTRY_TOKEN }}
+          registry: ghcr.io
+          repository: ${{ github.repository }}
+          tag_with_ref: true
