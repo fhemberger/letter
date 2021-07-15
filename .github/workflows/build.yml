@@ -10,11 +10,21 @@ jobs:
     steps:
       - name: Check out repo
         uses: actions/checkout@v2.3.4
+
+      - name: Determine short SHA of commit
+        uses: benjlevesque/short-sha@v1.2
+        id: short-sha
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v2.6.1
         with:
-          username: ${{ github.actor }}
-          password: ${{ secrets.REGISTRY_TOKEN }}
-          registry: ghcr.io
-          repository: ${{ github.repository }}
-          tag_with_ref: true
+          tags: |
+            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/user/${{ github.repository }}:${{ steps.short-sha.outputs.sha }}
