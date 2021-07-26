@@ -11,9 +11,8 @@ jobs:
       - name: Check out repo
         uses: actions/checkout@v2.3.4
 
-      - name: Determine short SHA of commit
-        uses: benjlevesque/short-sha@v1.2
-        id: short-sha
+      - name: Get the tag name
+        run: echo "TAG=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
@@ -34,6 +33,6 @@ jobs:
           push: true
           tags: |
             fhemberger/${{ github.repository }}:latest
-            fhemberger/${{ github.repository }}:${{ steps.short-sha.outputs.sha }}
+            fhemberger/${{ github.repository }}:${{ env.TAG }}
             ghcr.io/${{ github.repository }}:latest
-            ghcr.io/user/${{ github.repository }}:${{ steps.short-sha.outputs.sha }}
+            ghcr.io/user/${{ github.repository }}:${{ env.TAG }}
