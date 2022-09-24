@@ -4,11 +4,11 @@ import (
 	"bufio"
 	"encoding/base64"
 	"encoding/json"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"text/template"
+	"time"
 )
 
 type placeholders struct {
@@ -63,7 +63,7 @@ func serveIndex(w http.ResponseWriter, r *http.Request) {
 }
 
 func loadConfig() Config {
-	jsonFile, readErr := ioutil.ReadFile("config/config.json")
+	jsonFile, readErr := os.ReadFile("config/config.json")
 	if readErr != nil {
 		log.Fatal(readErr)
 	}
@@ -99,7 +99,10 @@ func inlineImage(filename string) string {
 
 	// read file content into buffer
 	fReader := bufio.NewReader(imgFile)
-	fReader.Read(buf)
+	_, readErr := fReader.Read(buf)
+	if readErr != nil {
+		log.Fatal(readErr)
+	}
 	return base64.StdEncoding.EncodeToString(buf)
 }
 
@@ -107,7 +110,7 @@ func main() {
 	config = loadConfig()
 	config.Signature = inlineImage("config/signature.png")
 
-	themeFile, err := ioutil.ReadFile("config/styles.css")
+	themeFile, err := os.ReadFile("config/styles.css")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -121,5 +124,10 @@ func main() {
 	http.HandleFunc("/", serveIndex)
 
 	log.Printf("Listening on %s ...\n", listen)
-	http.ListenAndServe(":3000", nil)
+	server := &http.Server{
+		Addr:         listen,
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
+	log.Fatal(server.ListenAndServe())
 }
