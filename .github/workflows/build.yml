@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Running govulncheck
-        uses: Templum/govulncheck-action@v0.0.9
+        uses: Templum/govulncheck-action@v0.10.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
